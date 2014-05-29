@@ -2,8 +2,10 @@ defaultTasks "idea", "test", "jar"
 
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 
-version = '0.6.0'
+version = '0.6.0-easyb-1.5.0'
+group = 'org.easyb'
 
 repositories {
   mavenCentral()
@@ -11,7 +13,7 @@ repositories {
 
 dependencies {
   compile 'org.codehaus.groovy:groovy-all:2.0.+'
-  compile "org.easyb:easyb:0.9.8"
+  compile "org.easyb:easyb-core:1.+"
   compile "junit:junit:4.4"
    compile "org.springframework:spring-test:3.0.4.RELEASE"
   testCompile "org.mockito:mockito-all:1.8.5"
@@ -26,28 +28,3 @@ dependencies {
     exclude group: "javax.jms", module: "jms"
   }
 }
-
-//task wrapper(type: Wrapper) {
-//    gradleVersion = '0.9-rc-3'
-//    jarPath = 'wrapper'
-//
-//}
-
-def ivyDependencies(conf) {
-  def dep = []
-  def ivyModule = new XmlParser().parse(file("ivy.xml"))
-
-  ivyModule.dependencies.dependency.each {
-    if (it.@conf == null || it.@conf == conf)
-      dep.add(it.@org + ':' + it.@name + ':' + it.@rev)
-  }
-
-  return dep
-}
-
-/*
-task sources(type: Jar) {
-  classifier = 'sources'
-  from sourceSets.all.allSource
-}*/
-

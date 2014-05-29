@@ -1,37 +1,36 @@
 package org.easyb.junit;
 
-import org.junit.runner.RunWith;
-
 import java.io.File;
 
-@RunWith(EasybJUnitRunner.class) 
+import org.junit.runner.RunWith;
+
+@RunWith(EasybJUnitRunner.class)
 public abstract class EasybSuite {
-    private File reportsDir;
 
     protected File baseDir() {
-      return new File("spec");
-   }
-
-    protected boolean generateReports(){
-       return false;
+	return new File("spec");
     }
 
-    protected File reportsDir(){
-       return new File("reports");
+    protected String description() {
+	return this.getClass().getName();
     }
 
-   protected File searchDir() {
-      String path = getClass().getName();
-      path = path.substring(0, path.lastIndexOf('.'));
-      path = path.replace('.', '/');
-      return new File(baseDir(), path);
-   }
+    protected boolean generateReports() {
+	return false;
+    }
 
-   protected String description() {
-      return getClass().getName();
-   }
+    protected File reportsDir() {
+	return new File("reports");
+    }
 
-   protected boolean trackTime() {
-      return false;
-   }
+    protected File searchDir() {
+	String path = this.getClass().getName();
+	path = path.substring(0, path.lastIndexOf('.'));
+	path = path.replace('.', '/');
+	return new File(this.baseDir(), path);
+    }
+
+    protected boolean trackTime() {
+	return false;
+    }
 }
